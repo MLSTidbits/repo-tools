@@ -49,18 +49,24 @@ Options:
 $copyright
 
 appTitle="depot"
-
-# Change mapfile to /usr/share/doc/depot for production releases
-appVersion="$(cat doc/version 2>/dev/null || echo "unknown")"
-
-verboseLib="/usr/lib/depot/verbose"
 EOL
 )"
 
-[[ -f .depot/init ]] && "source .depot/init" 2> /dev/null
+verboseLib="/usr/lib/depot/verbose"
 
-[[ -f $HOME/.depot/settings.conf ]] && source "$HOME/.depot/settings.conf" 2> /dev/null
-[[ -f .depot/settings.conf ]] && source ".depot/settings.conf" 2> /dev/null
+[[ ! -f .depot/init ]] && $verboseLib error "Not a depot repository (missing .depot/init)."
+
+[[ -f "$HOME/.depot/settings.conf" || -f ".depot/settings.conf" ]] ||
+$verboseLib warning "Configuration files not found. Using default settings."
+
+[[ -f .depot/init ]] && source ".depot/init" 2> /dev/null
+
+for configFile in "$HOME/.depot/settings.conf" ".depot/settings.conf"; do
+    [[ -f "$configFile" ]] && source "$configFile" 2> /dev/null
+    # If both don't exist, log a warning
+    [[ ! -f "$HOME/.depot/settings.conf" && ! -f ".depot/settings.conf" ]] &&
+    $verboseLib warning "No configuration files found. Using defaults."
+done
 
 [[ $# -eq 0 ]] && { echo "$appHelp" ; exit 0 ; }
 

@@ -88,8 +88,6 @@ pool="${POOL:-alpha}"
 [[ "$pool" == "alpha" || "$pool" == "library" ]] && poolDir="pool/$components"
 [[ "$pool" == "flat" ]] && poolDir="pool"
 
-/usr/lib/depot/verify-init
-
 while [[ $# -gt 0 ]]; do
     case "$1" in
         -a|--all       ) addAll=true                            ; shift  ;;

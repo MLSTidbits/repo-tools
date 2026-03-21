@@ -107,8 +107,6 @@ verboseLib="/usr/lib/depot/verbose"
 [[ ! -d .depot ]] &&
 $verboseLib error "No repository found. Please run '$0 init' first to create a new repository."
 
-/usr/lib/depot/verify-init
-
 # Load configuration
 source .depot/init 2> /dev/null ||
 $verboseLib error "Failed to load repository configuration from .depot/init."
