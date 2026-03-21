@@ -33,17 +33,15 @@ function add-package () {
     # Optionally move associated files
     for bi in "${baseName}"*.buildinfo; do
         if [[ -f "$bi" && "$addBuildinfo" == "true" ]] ; then
-            mv -v "$bi" "$destDir/"
-        else
-            $verboseLib warning "No matching buildinfo file for $deb"
+            mv "$bi" "$destDir/"
+            verboseLib info "Moved buildinfo file: $bi"
         fi
     done
 
     for ch in "${baseName}"*.changes; do
         if [[ -f "$ch" && "$addChanges" == "true" ]] ; then
-            mv -v "$ch" "$destDir/" ;
-        else
-            $verboseLib warning "No matching changes file for $deb"
+            mv "$ch" "$destDir/"
+            verboseLib info "Moved changes file: $ch"
         fi
     done
 
