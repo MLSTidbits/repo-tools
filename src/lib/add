@@ -34,14 +34,14 @@ function add-package () {
     for bi in "${baseName}"*.buildinfo; do
         if [[ -f "$bi" && "$addBuildinfo" == "true" ]] ; then
             mv "$bi" "$destDir/"
-            verboseLib info "Moved buildinfo file: $bi"
+            $verboseLib info "Moved buildinfo file: $bi"
         fi
     done
 
     for ch in "${baseName}"*.changes; do
         if [[ -f "$ch" && "$addChanges" == "true" ]] ; then
             mv "$ch" "$destDir/"
-            verboseLib info "Moved changes file: $ch"
+            $verboseLib info "Moved changes file: $ch"
         fi
     done
 
